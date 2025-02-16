@@ -26,18 +26,18 @@
             <div class="col-12 col-md-8 col-lg-4">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="text-center">Logowanie</h2>
-                        <form action="{{ route('login') }}" method="POST">
+                        <h2 class="text-center">Rejestracja</h2>
+                        <form action="{{ route('register') }}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label for="name">Nazwa</label>
-                                <input type="name" class="form-control" id="name" name="name" placeholder="Podaj nazwę">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Podaj nazwę">
                             </div>
                             <div class="form-group">
                                 <label for="password">Hasło</label>
                                 <input type="password" class="form-control" id="password" name="password" placeholder="Podaj hasło">
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block">Zaloguj</button>
+                            <button type="submit" class="btn btn-primary btn-block">Zarejestruj</button>
                         </form>
                     </div>
                 </div>

@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Services\AuthService;
+use App\Models\User;
+
+class AuthController extends Controller
+{
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
+
+    public function index()
+    {
+        return view('welcome');
+    }
+
+    public function register_view()
+    {
+        return view('register');
+    }
+
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|unique:users',
+            'password' => 'required'
+        ]);
+
+        return $this->authService->register($request->input('name'), $request->input('password'));
+    }
+
+    public function login(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'password' => 'required'
+        ]);
+
+        return $this->authService->login($request->input('name'), $request->input('password'));
+    }
+}
