@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Logowanie</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .vh-100 {
@@ -22,6 +22,7 @@
 </head>
 <body>
     <div class="container vh-100 d-flex justify-content-center align-items-center">
+        
         <div class="row justify-content-center align-items-center w-100">
             <div class="col-12 col-md-8 col-lg-4">
                 <div class="card">

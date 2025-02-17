@@ -20,11 +20,21 @@ class AuthService
 
     public function logout()
     {
-        
+        if(Auth::logout())
+        {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function register(string $name, string $password)
     {
+        if(User::where('name', $name)->exists())
+        {
+            return false;
+        }
+
         if(User::create([
             'name' => $name,
             'password' => Hash::make($password),

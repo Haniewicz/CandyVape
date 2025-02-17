@@ -41,6 +41,21 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        return $this->authService->login($request->input('name'), $request->input('password'));
+        if($this->authService->login($request->input('name'), $request->input('password')))
+        {
+            return redirect('/dashboard');
+        } else {
+            return "Nie działa";
+        }
+    }
+
+    public function logout()
+    {
+        if($this->authService->logout())
+        {
+            return redirect('/');
+        } else {
+            return redirect('/dashboard');
+        }
     }
 }
