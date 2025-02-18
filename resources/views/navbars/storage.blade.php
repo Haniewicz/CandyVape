@@ -7,10 +7,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Stan magazynowy</a>
+                    <a class="nav-link" href="{{Route('storage')}}">Stan magazynowy</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Dodaj nowy produkt</a>
+                    <a class="nav-link" href="{{Route('new_product')}}">Dodaj nowy produkt</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Dodaj kategorie</a>

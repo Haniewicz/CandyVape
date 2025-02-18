@@ -11,4 +11,9 @@ class StorageController extends Controller
     {
         return $this->view(['storage', 'storage', null]);
     }
+
+    public function new_product_view()
+    {
+        return $this->view(['storage', 'new_product', null]);
+    }
 }
