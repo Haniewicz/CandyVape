@@ -18,4 +18,5 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/storage', [StorageController::class, 'index'])->name('storage');
     Route::get('/dashboard/storage/new_product', [StorageController::class, 'new_product_view'])->name('new_product');
+    Route::post('/dashboard/storage/new_product', [StorageController::class, 'new_product'])->name('new_product_post');
 });

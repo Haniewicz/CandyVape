@@ -31,7 +31,12 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        return $this->authService->register($request->input('name'), $request->input('password'));
+        if($this->authService->register($request->input('name'), $request->input('password')))
+        {
+            return redirect('/');
+        }else{
+            return view('register');
+        }
     }
 
     public function login(Request $request)
@@ -45,7 +50,7 @@ class AuthController extends Controller
         {
             return redirect('/dashboard');
         } else {
-            return "Nie działa";
+            return view('dashboard');
         }
     }
 
