@@ -13,7 +13,13 @@
                     <a class="nav-link" href="{{Route('new_product')}}">Dodaj nowy produkt</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Dodaj kategorie</a>
+                    <a class="nav-link" href="{{Route('new_category')}}">Dodaj kategorie</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{Route('new_brand')}}">Dodaj Markę</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{Route('new_flavour')}}">Dodaj Smak</a>
                 </li>
             </ul>
         </div>

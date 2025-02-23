@@ -18,4 +18,14 @@ class Brand extends Model
     {
         return $this->belongsToMany(Flavour::class);
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'categories_brands');
+    }
+
+    public function brands_flavours()
+    {
+        return $this->belongsToMany(Flavour::class, 'flavours_brands');
+    }
 }

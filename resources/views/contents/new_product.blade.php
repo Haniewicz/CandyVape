@@ -33,41 +33,37 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="category">Typ produktu</label>
-                            <input type="list" class="form-control" id="category" name="category" placeholder="Typ produktu" list="categories">
-                            <datalist id="categories">
+                            <select class="form-control" id="category" name="category" placeholder="Typ produktu" style="width:100%">
                                 @foreach($lists['Categories'] as $item)
-                                    <option value="{{$item['category']}}">
+                                    <option value="{{$item['id']}}">{{$item['category']}}</option>
                                 @endforeach
-                            </datalist>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="brand">Marka produktu</label>
-                            <input type="list" class="form-control" id="brand" name="brand" placeholder="Marka produktu" list="brands">
-                            <datalist id="brands">
+                            <select class="form-control" id="brand" name="brand" placeholder="Marka produktu" style="width:100%">
                                 @foreach($lists['Brands'] as $item)
-                                    <option value="{{$item['brand']}}">
+                                    <option value="{{$item['id']}}">{{$item['brand']}}</option>
                                 @endforeach
-                            </datalist>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="flavour">Smak</label>
-                            <input type="list" class="form-control" id="flavour" name="flavour" placeholder="Smak" list="flavours">
-                            <datalist id="flavours">
+                            <select class="form-control" id="flavour" name="flavour" placeholder="Smak">
                                 @foreach($lists['Flavours'] as $item)
-                                    <option value="{{$item['flavour']}}">
+                                    <option value="{{$item['id']}}">{{$item['flavour']}}</option>
                                 @endforeach
-                            </datalist>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="power">Moc</label>
-                            <input type="list" class="form-control" id="power" name="power" placeholder="Moc" list="power-options">
-                            <datalist id="power-options">
-                                <option value="3">
-                                <option value="6">
-                                <option value="12">
-                                <option value="18">
-                                <option value="20">
-                            </datalist>
+                            <select class="form-control" id="power" name="power" placeholder="Moc">
+                                <option value="3">3</option>
+                                <option value="6">6</option>
+                                <option value="12">12</option>
+                                <option value="18">18</option>
+                                <option value="20">20</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="price">Cena</label>

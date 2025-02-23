@@ -9,6 +9,8 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Flavour;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Response;
 
 class StorageController extends Controller
 {
@@ -19,7 +21,7 @@ class StorageController extends Controller
 
     public function index()
     {
-        return $this->view(['storage', 'storage', 'Storage'])->withProducts(Product::all());
+        return $this->view(['storage', 'storage', 'Storage'])->withProducts(Product::all())->withCategories(Category::all())->withBrands(Brand::all())->withFlavours(Flavour::all());
     }
 
     public function new_product_view()
@@ -36,5 +38,34 @@ class StorageController extends Controller
     {
         $message = $this->storage_service->new_product($request);
         return redirect()->back()->with('message', $message);
+    }
+
+    public function update_product(Request $request): JsonResponse
+    {
+        $message = $this->storage_service->update_product($request);
+        return Response::json($message);
+    }
+
+    public function delete_product(Request $request): JsonResponse
+    {
+        $message = $this->storage_service->delete_product($request);
+        return Response::json($message);
+    }
+
+    public function get_brands(Request $request): JsonResponse
+    {
+        
+        return Response::json(json_encode(Category::find($request->id)->brands));
+    }
+
+    public function get_flavours(Request $request): JsonResponse
+    {
+        if(Brand::find($request->id))
+        {
+            $flavours = Brand::find($request->id)->flavours_brands;
+            return Response::json(json_encode($flavours));
+        }else{
+            return Response::json(null);
+        }
     }
 }

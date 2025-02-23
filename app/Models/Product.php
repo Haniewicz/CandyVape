@@ -14,6 +14,11 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function categories()
+    {
+        return Category::all();
+    }
+
     public function brand()
     {
         return $this->belongsTo(Brand::class);

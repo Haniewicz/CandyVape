@@ -23,4 +23,6 @@ $(document).ready(function() {
   if(jobCount == '0') {$('.no-result').show();}
     else {$('.no-result').hide();}
 		  });
+
 });
+
