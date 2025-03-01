@@ -16,7 +16,7 @@ class Brand extends Model
 
     public function flavours()
     {
-        return $this->belongsToMany(Flavour::class);
+        return $this->belongsToMany(Flavour::class, 'brands_flavours');
     }
 
     public function categories()
@@ -24,8 +24,4 @@ class Brand extends Model
         return $this->belongsToMany(Category::class, 'categories_brands');
     }
 
-    public function brands_flavours()
-    {
-        return $this->belongsToMany(Flavour::class, 'flavours_brands');
-    }
 }

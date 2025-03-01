@@ -19,18 +19,15 @@ class BrandService
             $brand_id = Brand::where('brand', $request->brand)->first()->id;
             foreach($request->category as $category)
             {
-                if(!CategoryBrand::where('category_id', $category)->where('brand_id', $brand_id))
+                if(!CategoryBrand::where('category_id', $category)->where('brand_id', $brand_id)->exists())
                 {
-                    if(CategoryBrand::create([
+                    CategoryBrand::create([
                         'category_id' => $category,
                         'brand_id' => $brand_id,
-                    ])){
-                        return ['success' => 'Dodano markę'];
-                    }else{
-                        return ['success' => 'Nie dodano marki'];
-                    }
+                    ]);
                 }
             }
+            return ['success' => 'Dodano markę'];
             
         }else{
             $brand_id = Brand::Create([
@@ -38,15 +35,12 @@ class BrandService
             ])->id;
             foreach($request->category as $category)
             {
-                if(CategoryBrand::create([
+                CategoryBrand::create([
                     'category_id' => $category,
                     'brand_id' => $brand_id,
-                ])){
-                    return ['success' => 'Dodano markę'];
-                }else{
-                    return ['error' => 'Nie dodano marki 2']; 
-                }
+                ]);
             }
+            return ['success' => 'Dodano markę'];
             
         }
 

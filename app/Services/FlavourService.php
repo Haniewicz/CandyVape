@@ -20,7 +20,7 @@ class FlavourService
             $flavour_id = Flavour::where('flavour', $request->flavour)->first()->id;
             foreach($request->brand as $brand)
             {
-                if(!BrandFlavour::where('brand_id', $brand)->where('flavour_id', $flavour_id))
+                if(!BrandFlavour::where('brand_id', $brand)->where('flavour_id', $flavour_id)->exists())
                 {
                     BrandFlavour::create([  
                         'brand_id' => $brand,
@@ -35,7 +35,7 @@ class FlavourService
             ])->id;
             foreach($request->brand as $brand)
             {
-            BrandFlavour::create([
+                BrandFlavour::create([
                     'brand_id' => $brand,
                     'flavour_id' => $flavour_id,
                 ]);

@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Flavour;
+use App\Models\CategoryBrand;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
 
@@ -21,7 +22,11 @@ class StorageController extends Controller
 
     public function index()
     {
-        return $this->view(['storage', 'storage', 'Storage'])->withProducts(Product::all())->withCategories(Category::all())->withBrands(Brand::all())->withFlavours(Flavour::all());
+        return $this->view(['storage', 'storage', 'Storage'])
+        ->withProducts(Product::all())
+        ->withCategories(Category::all())
+        ->withBrands(Brand::all())
+        ->withFlavours(Flavour::all());
     }
 
     public function new_product_view()
@@ -62,7 +67,7 @@ class StorageController extends Controller
     {
         if(Brand::find($request->id))
         {
-            $flavours = Brand::find($request->id)->flavours_brands;
+            $flavours = Brand::find($request->id)->flavours;
             return Response::json(json_encode($flavours));
         }else{
             return Response::json(null);

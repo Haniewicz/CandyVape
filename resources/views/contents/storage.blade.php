@@ -24,8 +24,8 @@
         <tr id="row-{{ $product->id }}">
         <th scope="row-{{ $product->id }}">{{$product->id}}</th>
         <td>
-            <select aria-label="category" class="form-select form-select-lg" name="category" id="category-{{ $product->id }}" style="width:100%" onchange="if(this.selectedIndex) changeBrands({{$product->id}})" disabled>
-                <option value="{{$product->category->id}}" selected>{{$product->category->category}}</option>
+            <select aria-label="category" class="form-control" name="category" id="category-{{ $product->id }}" style="width:100%" onchange="changeBrands({{$product->id}})" disabled>
+                <option value="{{$product->category->id}}">{{$product->category->category}}</option>
                     @foreach($categories as $category)
                         @if($category->category != $product->category->category)
                             <option value="{{$category->id}}">{{$category->category}}</option>
@@ -36,17 +36,14 @@
         
         @if($product->brand_id == null)
             <td>
-                <select aria-label="brand" class="form-select" name="brand" id="brand-{{ $product->id }}" style="width:100%" disabled>
-                <option value="" selected>Brak</option>
-                @foreach($brands as $brand)
-                    <option value="{{$brand->id}}">{{$brand->brand}}</option>
-                @endforeach
-            </td>
+                <select aria-label="brand" class="form-control" name="brand" id="brand-{{ $product->id }}" style="width:100%" onchange="changeFlavours({{$product->id}})" disabled>
+                <option value="">Brak</option>
+            </td> 
         @else
             <td>
-                <select aria-label="brand" class="form-select" name="brand" id="brand-{{ $product->id }}" style="width:100%" disabled>
-                <option value="{{$product->brand->id}}" selected>{{$product->brand->brand}}</option>
-                @foreach($brands as $brand)
+                <select aria-label="brand" class="form-control" name="brand" id="brand-{{ $product->id }}" style="width:100%" onchange="changeFlavours({{$product->id}})" disabled>
+                <option value="{{$product->brand->id}}">{{$product->brand->brand}}</option>
+                @foreach($product->category->brands as $brand)
                     @if($brand->brand != $product->brand->brand)
                         <option value="{{$brand->id}}">{{$brand->brand}}</option>
                     @endif
@@ -57,7 +54,7 @@
 
         @if($product->flavour_id == null)
             <td>
-                <select aria-label="flavour" class="form-select" name="flavour" id="flavour-{{ $product->id }}" style="width:100%" disabled>
+                <select aria-label="flavour" class="form-control" name="flavour" id="flavour-{{ $product->id }}" style="width:100%" disabled>
                 <option value="" selected>Brak</option>
                 @foreach($flavours as $flavour)
                     <option value="{{$flavour->id}}">{{$flavour->flavour}}</option>
@@ -65,9 +62,9 @@
             </td>
         @else
             <td>
-                <select aria-label="flavour" class="form-select" name="flavour" id="flavour-{{ $product->id }}" style="width:100%" disabled>
+                <select aria-label="flavour" class="form-control" name="flavour" id="flavour-{{ $product->id }}" style="width:100%" disabled>
                 <option value="{{$product->flavour->id}}" selected>{{$product->flavour->flavour}}</option>
-                @foreach($flavours as $flavour)
+                @foreach($product->brand->flavours as $flavour)
                     @if($flavour->flavour != $product->flavour->flavour)
                         <option value="{{$flavour->id}}">{{$flavour->flavour}}</option>
                     @endif
@@ -78,7 +75,7 @@
 
         @if($product->power == null)
             <td>
-                <select aria-label="power" class="form-select" name="power" id="power-{{ $product->id }}" style="width:100%" disabled>
+                <select aria-label="power" class="form-control" name="power" id="power-{{ $product->id }}" style="width:100%" disabled>
                     <option value = "" selected>Brak</option>
                     <option value = "3">3</option>
                     <option value = "6">6</option>
@@ -89,7 +86,7 @@
             </td>
         @else
             <td>
-                <select aria-label="power" class="form-select" name="power" id="power-{{ $product->id }}" style="width:100%" disabled>
+                <select aria-label="power" class="form-control" name="power" id="power-{{ $product->id }}" style="width:100%" disabled>
                         <option value = "{{$product->power}}" selected>{{$product->power}}</option>
                         <option value = "3">3</option>
                         <option value = "6">6</option>
@@ -101,16 +98,16 @@
         @endif
 
         <td>
-            <input type="number" id="quantity-{{ $product->id }}" class="form-input" name="quantity" value="{{ $product->quantity }}" style="width:100%" disabled>
+            <input type="number" id="quantity-{{ $product->id }}" class="form-control" name="quantity" value="{{ $product->quantity }}" style="width:100%" disabled>
         </td>
 
         @if($product->price == null)
             <td>
-                <input type="text" id="price-{{ $product->id }}" class="form-input" name="price" value="0" style="width:100%" disabled>
+                <input type="text" id="price-{{ $product->id }}" class="form-control" name="price" value="0" style="width:100%" disabled>
             </td>
         @else
             <td>
-                <input type="text" id="price-{{ $product->id }}" class="form-input" name="price" value="{{ $product->price }}" style="width:100%" disabled>
+                <input type="text" id="price-{{ $product->id }}" class="form-control" name="price" value="{{ $product->price }}" style="width:100%" disabled>
             </td>
         @endif
         <td>
@@ -121,6 +118,7 @@
         @endforeach
     </tbody>
     </table>
+
 </div>
 <script>
     //funkcja do wyszukiwania w tabeli i zwracania tego co znalazło
@@ -254,26 +252,29 @@
                 dataType: "json",
                 success: function(response)
                 {
-                    console.log(response);
                     response = JSON.parse(response)
                     Brand.innerHTML = "";
-                    if(response != []);
+                    Brand.value = null;
+                    Flavour.innerHTML = null;
+                    if(response != null);
                     {
                         for (let i = 0; i < response.length; i++) {
-                            console.log(response[i]);
                             Brand.innerHTML += "<option value="+response[i]['id']+">"+response[i]['brand']+"</option>";
+                            if(i == 0){
+                                Brand.value = response[i]['id'];
+                            }
+                        }
+                        if(Brand.value != null)
+                        {
+                            changeFlavours(tableID);
+                        }else{
+                            Flavour.innerHTML = "";
                         }
                     }
 
                 }
             });
         });
-        if(Brand.value != null)
-        {
-            changeFlavours(tableID);
-        }else{
-            Flavour.innerHTML = "";
-        }
         
     }
 
@@ -282,6 +283,7 @@
         var Category = document.getElementById("category-"+tableID);
         var Brand = document.getElementById("brand-"+tableID);
         var Flavour = document.getElementById("flavour-"+tableID);
+
 
         if(Brand.value != null)
         {
@@ -302,13 +304,11 @@
                     dataType: "json",
                     success: function(response)
                     {
-                        console.log(response);
                         response = JSON.parse(response)
                         Flavour.innerHTML = "";
                         if(response != null)
                         {
                             for (let i = 0; i < response.length; i++) {
-                                console.log(response[i]);
                                 Flavour.innerHTML += "<option value="+response[i]['id']+">"+response[i]['flavour']+"</option>";
                             }
                         }
